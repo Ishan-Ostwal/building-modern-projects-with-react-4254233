@@ -11,11 +11,27 @@ function App() {
     { text: "Make the documentation for the app", isCompleted: false },
   ]);
 
+  function markTodoAsComplete(text) {
+    setIncompleteTodos(incompleteTodos.filter((t) => t.text !== text));
+    setCompletedTodos([
+      ...completedTodos, //using ... the completed todos aray will be spread here as objects.
+      { text, isCompleted: true },
+    ]);
+  }
+  function deleteTodo(text) {
+    setCompletedTodos(completedTodos.filter((t) => t.text !== text));
+  }
+  function createTodo(text) {
+    setIncompleteTodos([...incompleteTodos, { text, isCompleted: false }]);
+  }
   return (
     <>
       <TodoList
         completedTodos={completedTodos}
         incompleteTodos={incompleteTodos}
+        onCompletedClicked={markTodoAsComplete}
+        onDeletedClicked={deleteTodo}
+        onCreateClicked={createTodo}
       />
     </>
   );
