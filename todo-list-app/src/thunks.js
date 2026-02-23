@@ -17,7 +17,6 @@ export const markTodoAsCompleted = (todoId) => async (dispatch, getState) => {
   try {
     const todo = getState().todos.value.find((t) => t.id === todoId)
     const response = await axios.put("/api/todos/" + todoId, {
-      ...todo,
       isCompleted: true,
     })
     const updatedTodos = getState()
